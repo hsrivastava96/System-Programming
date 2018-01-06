@@ -1,0 +1,21 @@
+112	(IS, 0)
+101	(AD, 1)	(C, 101)
+102	(IS, 9)	(Sym, **)
+103	(IS, 4)	(REG, 2)	Symb/LitTab
+104	(IS, 5)	(REG, 2)	Symb/LitTab
+105	(IS, 4)	(REG, 3)	Symb/LitTab
+106	(IS, 1)	(REG, 3)	Symb/LitTab
+107	(IS, 5)	(REG, 3)	Symb/LitTab
+108	(IS, 6)	(REG, 3)	Symb/LitTab
+109	(IS, 7)	Symb/LitTab	Symb/LitTab
+110	(IS, 5)	(REG, 2)	Symb/LitTab
+111	(IS, 10)	(Sym, **)
+112	(IS, 0)
+113	Symb/LitTab	(DL, 2)	(C, 1)
+
+115	Symb/LitTab	(DL, 2)	(C, 1)
+
+117	Symb/LitTab	(DL, 1)	
+118	Symb/LitTab	(DL, 2)	(C, 1)
+
+120	(AD, 2)
