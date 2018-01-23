@@ -86,7 +86,7 @@ void create(char val[20], int lc, int key)
 			{
 				indlit++;
 				newn=(node *)malloc(sizeof(node));
-				newn->loc=lc;
+				newn->loc=0;
 				newn->ind=indlit;
 				strcpy(newn->str, val);
 				newn->next=NULL;
@@ -111,7 +111,7 @@ void create(char val[20], int lc, int key)
 				{
 					indlit++;
 					newn=(node *)malloc(sizeof(node));
-					newn->loc=lc;
+					newn->loc=0;
 					newn->ind=indlit;
 					strcpy(newn->str, val);
 					newn->next=NULL;
@@ -134,7 +134,7 @@ void create(char val[20], int lc, int key)
 			{
 				indsmb++;
 				newn=(node *)malloc(sizeof(node));
-				newn->loc=lc;
+				newn->loc=0;
 				newn->ind=indsmb;
 				strcpy(newn->str, val);
 				newn->next=NULL;
@@ -159,7 +159,7 @@ void create(char val[20], int lc, int key)
 				{
 					indsmb++;
 					newn=(node *)malloc(sizeof(node));
-					newn->loc=lc;
+					newn->loc=0;
 					newn->ind=indsmb;
 					strcpy(newn->str, val);
 					newn->next=NULL;
@@ -204,6 +204,7 @@ void create(char val[20], int lc, int key)
 					{
 						sflag=1;
 						indlit=tmpsrch->ind;
+						tmpsrch->loc=lc;
 					}
 					tmpsrch=tmpsrch->next;
 				}	
@@ -244,6 +245,7 @@ void create(char val[20], int lc, int key)
 					{
 						sflag=1;
 						indlit=tmpsrch->ind;
+						tmpsrch->loc=lc;
 					}
 					tmpsrch=tmpsrch->next;
 				}	
@@ -299,24 +301,23 @@ void main()
 			{
 				if((srch_res=search_is(val1, is_tab))!=-1)
 				{
-					lc++;
 					index=srch_res;
 					printf("%d\t(IS, %d)\n", lc, index);
 					fprintf(out1, "%d\t(IS, %d)\n", lc, index);
+					lc++;
 				}
 				else if((srch_res=search_ad(val1, ad_tab))!=-1)
 				{
-					lc++;
 					index=srch_res+1;
 					printf("%d\t(AD, %d)\n", lc, index);
 					fprintf(out1, "%d\t(AD, %d)\n", lc, index);
+					lc++;
 				}
 			}	
 			if(n==2)
 			{
 				if((srch_res=search_is(val1, is_tab))!=-1)
 				{
-					lc++;
 					index=srch_res;
 					printf("%d\t(IS, %d)\t", lc, index);
 					fprintf(out1, "%d\t(IS, %d)\t", lc, index);
@@ -334,6 +335,7 @@ void main()
 						printf("\n");
 						fprintf(out1, "\n");
 					}
+					lc++;
 				}
 				else							//This is to check AD table Right Now assuming it's only start
 				{
@@ -348,7 +350,6 @@ void main()
 			{
 				if((srch_res=search_is(val1, is_tab))!=-1)
 				{
-					lc++;
 					index=srch_res;						
 					printf("%d\t(IS, %d)\t", lc, index);
 					fprintf(out1, "%d\t(IS, %d)\t", lc, index);
@@ -412,14 +413,14 @@ void main()
 							fprintf(out1, "\n");
 						}
 					}
+					lc++;
 				}
 				else					//For time being assume it is a label
 				{
-					lc++;
 					printf("%d\t", lc);
 					fprintf(out1, "%d\t", lc);
 					fclose(out1);
-					create(val1, lc, 0);
+					create(val1, lc, 1);
 					out1=fopen("output_fileP1.txt", "a+");
 					if((srch_res=search_ds(val2, ds_tab))!=-1)	//POINT
 					{
@@ -428,21 +429,21 @@ void main()
 						fprintf(out1, "\t(DL, %d)\t", index);
 						if(index==2)
 						{
-							lc=lc+atoi(val3);
 							printf("(C, %d)\n", atoi(val3));	
 							fprintf(out1, "(C, %d)\n", atoi(val3));	
+							lc=lc+atoi(val3);
 						}
 						else
 						{
 							printf("\n");
 							fprintf(out1, "\n");
+							lc++;
 						}
 					}
 				}
 			}
 			if(n==4)
 			{
-				lc++;
 				printf("%d\t", lc);
 				fprintf(out1, "%d\t", lc);
 				fclose(out1);
@@ -450,7 +451,6 @@ void main()
 				out1=fopen("output_fileP1.txt", "a+");
 				if((srch_res=search_is(val2, is_tab))!=-1)
 				{
-					lc++;
 					index=srch_res;						
 					printf("\t(IS, %d)\t", index);
 					fprintf(out1, "\t(IS, %d)\t", index);
@@ -519,30 +519,79 @@ void main()
 				}
 				else					//For time being assume it is a label
 				{
-					lc++;
 					printf("\t");
 					fprintf(out1, "\t");
 					fclose(out1);
 					create(val2, lc, 0);
 					out1=fopen("output_fileP1.txt", "a+");
-					if((srch_res=search_ds(val3, ds_tab))!=-1)
+					if((srch_res=search_is(val2, is_tab))!=-1)
 					{
-						index=srch_res+1;
-						printf("\t(DL, %d)\t", index);
-						fprintf(out1, "\t(DL, %d)\t", index);
-						if(index==2)
-						{
-							lc=lc+atoi(val4);
-							printf("(C, %d)\n", atoi(val4));	
-							fprintf(out1, "(C, %d)\n", atoi(val4));	
+						index=srch_res;						
+						printf("%d\t(IS, %d)\t", lc, index);
+						fprintf(out1, "%d\t(IS, %d)\t", lc, index);
+						if((srch_res=search_rg(val3, reg_tab))!=-1)
+						{			
+							index=srch_res+1;
+							printf("(REG, %d)\t", index);
+							fprintf(out1, "(REG, %d)\t", index);
+							if((srch_res=search_rg(val4, reg_tab))!=-1)
+							{
+								index=srch_res+1;
+								printf("(REG, %d)\n", index);
+								fprintf(out1, "(REG, %d)\n", index);
+							}
+							else
+							{
+								fclose(out1);
+								create(val4, lc, 0);
+								out1=fopen("output_fileP1.txt", "a+");
+								printf("\n");
+								fprintf(out1, "\n");
+							}
 						}
-						else
+						else if((srch_res=search_cond(val3, cond_tab))!=-1)
 						{
-							printf("\n");
-							fprintf(out1, "\n");
+							index=srch_res+1;
+							printf("(Cond, %d)\t", index);
+							fprintf(out1, "(Cond, %d)\t", index);
+							if((srch_res=search_rg(val4, reg_tab))!=-1)
+							{
+								index=srch_res+1;
+								printf("(REG, %d)\n", index);
+								fprintf(out1, "(REG, %d)\n", index);
+							}
+							else
+							{
+								fclose(out1);
+								create(val4, lc, 0);
+								out1=fopen("output_fileP1.txt", "a+");
+								printf("\n");
+								fprintf(out1, "\n");
+							}												
+						}
+						else	
+						{
+							fclose(out1);
+							create(val3, lc, 0);
+							out1=fopen("output_fileP1.txt", "a+");
+							if((srch_res=search_rg(val4, reg_tab))!=-1)
+							{
+								index=srch_res+1;
+								printf("\t(REG, %d)\n", index);
+								fprintf(out1, "\t(REG, %d)\n", index);
+							}
+							else
+							{
+								fclose(out1);
+								create(val4, lc, 0);
+								out1=fopen("output_fileP1.txt", "a+");
+								printf("\n");
+								fprintf(out1, "\n");
+							}
 						}
 					}
 				}
+					lc++;
 			}
 		}
 	}
@@ -570,3 +619,4 @@ void main()
 		t2=t2->next;
 	}
 }
+
